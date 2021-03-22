@@ -24,55 +24,56 @@ Things you may want to cover:
 * ...
 
 ## usersテーブル
-| Column          |Type    | Options     |
-| -----------     |--------| ------------|
-| nickname        | string | null: false |
-| email           | string | null: false |
-| password        | string | null: false |
-| familyname      | string | null: false |
-| firstname       | string | null: false |
-| familyname_kana | string | null: false |
-| firstname_kana  | string | null: false |
-| birthday        | date   | null: false |
+| Column             |Type    | Options                  |
+| -----------        |--------| -------------------------|
+| nickname           | string | null: false ,unique: true|
+| email              | string | null: false              |
+| encrypted_password | string | null: false              |
+| familyname         | string | null: false              |
+| firstname          | string | null: false              |
+| familyname_kana    | string | null: false              |
+| firstname_kana     | string | null: false              |
+| birthday           | date   | null: false              |
 
 ### Association
-- has_many :item
-- has_many :purchase
+- has_many :items
+- has_many :purchases
 
 ## itemsテーブル
-| Column           |Type    | Options     |
-| -----------      |--------| ------------|
-| image            | string | null: false |
-| item_name        | string | null: false |
-| item_discription | text   | null: false |
-| category         | string | null: false |
-| status           | string | null: false |
-| shipping         | string | null: false |
-| delivery_day     | string | null: false |
-| proce            | string | null: false |
+| Column              |Type    | Options     |
+| -----------         |--------| ------------|
+| name                | string | null: false |
+| discription         | text   | null: false |
+| category_id         | references | null: false |
+| status_id           | references | null: false |
+| shipping_date_id    | references | null: false |
+| shipment_source_id  | references | null: false |
+| delivery_day_id     | references | null: false |
+| price               | integer    | null: false |
 ### Association
-- belongs_to :user
-- has_many :purchase
+- belongs_to :users
+- has_one :purchases
 
 ## purchaseテーブル
-| Column           |Type    | Options     |
-| -----------      |--------| ------------|
-|                  | string | null: false |
-|                  | string | null: false |
+| Column     |Type        | Options     |
+| -----------|------------| ------------|
+| users_id    | references| null: false |
+| items_id   | references | null: false |
 
 ### Association
-- belongs_to :user
-- belongs_to :item
+- belongs_to :users
+- belongs_to :items
 - has_one :shipping_adress
+- references : shipping_adress
 
 ## shipping_adressテーブル
 | Column           |Type    | Options     |
 | -----------      |--------| ------------|
 | postal_code      | string | null: false |
-| prefectures      | string | null: false |
+| prefectures_id   | integer| null: false |
 | municipalities   | string | null: false |
 | house_number     | string | null: false |
-| building_name    | string | null: false |
+| building_name    | string |             |
 | phone_number     | string | null: false |
 ### Association
-- has_one :purchase
+- has_one :purchases
