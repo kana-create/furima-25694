@@ -44,29 +44,28 @@ Things you may want to cover:
 | -----------         |--------| ------------|
 | name                | string | null: false |
 | discription         | text   | null: false |
-| category_id         | references | null: false |
-| status_id           | references | null: false |
-| shipping_date_id    | references | null: false |
-| shipment_source_id  | references | null: false |
-| delivery_day_id     | references | null: false |
+| category_id         | integer | null: false |
+| status_id           | integer  | null: false |
+| shipping_date_id    | integer  | null: false |
+| shipment_source_id  | integer  | null: false |
+| delivery_day_id     | integer  | null: false |
 | price               | integer    | null: false |
 ### Association
-- belongs_to :users
-- has_one :purchases
+- belongs_to :user
+- has_one :purchase
 
 ## purchaseテーブル
-| Column     |Type        | Options     |
-| -----------|------------| ------------|
-| users_id    | references| null: false |
-| items_id   | references | null: false |
+| Column     |Type        | Options                       |
+| -----------|------------| ------------------------------|
+| users_id   | references | null: false,foreign_key: true |
+| items_id   | references | null: false ,foreign_key: true|
 
 ### Association
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
 - has_one :shipping_adress
-- references : shipping_adress
 
-## shipping_adressテーブル
+## shipping_adressesテーブル
 | Column           |Type    | Options     |
 | -----------      |--------| ------------|
 | postal_code      | string | null: false |
@@ -76,4 +75,4 @@ Things you may want to cover:
 | building_name    | string |             |
 | phone_number     | string | null: false |
 ### Association
-- has_one :purchases
+- has_one :purchase
